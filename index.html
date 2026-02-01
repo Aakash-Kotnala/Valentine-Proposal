@@ -29,6 +29,8 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       max-width: 360px;
       width: 90%;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -43,18 +45,12 @@
       margin-bottom: 30px;
     }
 
-    .buttons {
-      position: relative;
-      height: 120px;
-    }
-
     button {
       padding: 14px 32px;
       border-radius: 50px;
       border: none;
       font-size: 18px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     #yes {
@@ -65,23 +61,19 @@
 
     #yes:hover {
       transform: scale(1.08);
-      box-shadow: 0 15px 25px rgba(255,77,109,0.6);
     }
 
     #no {
-      position: absolute;
+      position: fixed;
       background: #eee;
       color: #555;
-      left: 50%;
-      top: 60px;
-      transform: translateX(-50%);
+      z-index: 3;
     }
 
     .hearts {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      overflow: hidden;
     }
 
     .heart {
@@ -92,11 +84,11 @@
 
     @keyframes floatUp {
       from {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
         opacity: 1;
       }
       to {
-        transform: translateY(-110vh) scale(1.5);
+        transform: translateY(-110vh);
         opacity: 0;
       }
     }
@@ -108,12 +100,10 @@
   <div class="card">
     <h1>Isha 💖</h1>
     <div class="subtitle">Will you be my Valentine?</div>
-
-    <div class="buttons">
-      <button id="yes">Yes 💕</button>
-      <button id="no">No 🙈</button>
-    </div>
+    <button id="yes">Yes 💕</button>
   </div>
+
+  <button id="no">No 🙈</button>
 
   <div class="hearts"></div>
 
@@ -122,12 +112,33 @@
     const yesBtn = document.getElementById("yes");
     const heartsContainer = document.querySelector(".hearts");
 
-    noBtn.addEventListener("mouseenter", () => {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+    function moveNoButton() {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Move when mouse gets close
+    document.addEventListener("mousemove", (e) => {
+      const rect = noBtn.getBoundingClientRect();
+      const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+      );
+
+      if (distance < 120) {
+        moveNoButton();
+      }
     });
+
+    // Mobile support
+    noBtn.addEventListener("touchstart", moveNoButton);
 
     yesBtn.addEventListener("click", () => {
       document.body.innerHTML = `
@@ -152,8 +163,10 @@
 
       setTimeout(() => heart.remove(), 6000);
     }, 300);
+
+    // Initial NO position
+    moveNoButton();
   </script>
 
 </body>
 </html>
-
