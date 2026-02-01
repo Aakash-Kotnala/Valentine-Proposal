@@ -27,7 +27,7 @@
       border-radius: 25px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      max-width: 360px;
+      max-width: 380px;
       width: 90%;
       z-index: 2;
     }
@@ -44,6 +44,13 @@
       margin-bottom: 35px;
     }
 
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+    }
+
     button {
       border: none;
       border-radius: 50px;
@@ -52,7 +59,7 @@
     }
 
     #yes {
-      padding: 16px 44px;
+      padding: 16px 46px;
       font-size: 20px;
       background: #ff4d6d;
       color: white;
@@ -64,8 +71,8 @@
     }
 
     #no {
-      padding: 10px 26px;
-      font-size: 14px;
+      padding: 8px 20px;
+      font-size: 13px;
       background: #e5e5e5;
       color: #555;
       position: fixed;
@@ -100,12 +107,14 @@
 <body>
 
   <div class="card">
-    <h1>Isha</h1>
+    <h1>Hi, Isha</h1>
     <div class="subtitle">Will you be my Valentine?</div>
-    <button id="yes">Yes</button>
-  </div>
 
-  <button id="no">No</button>
+    <div class="button-row">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+  </div>
 
   <div class="hearts"></div>
 
@@ -126,7 +135,7 @@
       noBtn.style.top = y + "px";
     }
 
-    // Move every time hover happens
+    // Move every time user tries to hover
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
@@ -134,15 +143,15 @@
     yesBtn.addEventListener("click", () => {
       document.body.innerHTML = `
         <div class="card">
-          <h1>YAY ISHA</h1>
+          <h1>Wohooo!! ISHA</h1>
           <p style="font-size:18px; color:#555;">
-            Valentine’s Day just got official.
+            Valentine’s Day is officially booked.
           </p>
         </div>
       `;
     });
 
-    // Floating hearts (background only)
+    // Floating hearts
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -155,8 +164,8 @@
       setTimeout(() => heart.remove(), 6000);
     }, 300);
 
-    // Initial position so NO is visible immediately
-    moveNoButton();
+    // Start with NO next to YES, then escape
+    setTimeout(moveNoButton, 300);
   </script>
 
 </body>
