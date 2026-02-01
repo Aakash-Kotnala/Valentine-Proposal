@@ -41,21 +41,22 @@
     .subtitle {
       font-size: 18px;
       color: #555;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
     }
 
     button {
-      padding: 14px 32px;
-      border-radius: 50px;
       border: none;
-      font-size: 18px;
+      border-radius: 50px;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
 
     #yes {
+      padding: 16px 44px;
+      font-size: 20px;
       background: #ff4d6d;
       color: white;
-      box-shadow: 0 10px 20px rgba(255,77,109,0.4);
+      box-shadow: 0 12px 25px rgba(255,77,109,0.4);
     }
 
     #yes:hover {
@@ -63,9 +64,11 @@
     }
 
     #no {
-      position: fixed;
-      background: #eee;
+      padding: 10px 26px;
+      font-size: 14px;
+      background: #e5e5e5;
       color: #555;
+      position: fixed;
       z-index: 3;
     }
 
@@ -97,7 +100,7 @@
 <body>
 
   <div class="card">
-    <h1>Isha ❤️</h1>
+    <h1>Isha</h1>
     <div class="subtitle">Will you be my Valentine?</div>
     <button id="yes">Yes</button>
   </div>
@@ -123,7 +126,7 @@
       noBtn.style.top = y + "px";
     }
 
-    // Move EVERY time you try to hover
+    // Move every time hover happens
     noBtn.addEventListener("mouseenter", moveNoButton);
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
@@ -131,15 +134,15 @@
     yesBtn.addEventListener("click", () => {
       document.body.innerHTML = `
         <div class="card">
-          <h1>YAY ISHA ❤️</h1>
+          <h1>YAY ISHA</h1>
           <p style="font-size:18px; color:#555;">
-            Valentine’s Day just got special ✨
+            Valentine’s Day just got official.
           </p>
         </div>
       `;
     });
 
-    // Floating hearts
+    // Floating hearts (background only)
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -152,7 +155,7 @@
       setTimeout(() => heart.remove(), 6000);
     }, 300);
 
-    // Initial position
+    // Initial position so NO is visible immediately
     moveNoButton();
   </script>
 
