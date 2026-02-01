@@ -29,7 +29,6 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       max-width: 360px;
       width: 90%;
-      position: relative;
       z-index: 2;
     }
 
@@ -98,12 +97,12 @@
 <body>
 
   <div class="card">
-    <h1>Isha 💖</h1>
+    <h1>Isha ❤️</h1>
     <div class="subtitle">Will you be my Valentine?</div>
-    <button id="yes">Yes 💕</button>
+    <button id="yes">Yes</button>
   </div>
 
-  <button id="no">No 🙈</button>
+  <button id="no">No</button>
 
   <div class="hearts"></div>
 
@@ -124,28 +123,17 @@
       noBtn.style.top = y + "px";
     }
 
-    // Move when mouse gets close
-    document.addEventListener("mousemove", (e) => {
-      const rect = noBtn.getBoundingClientRect();
-      const distance = Math.hypot(
-        e.clientX - (rect.left + rect.width / 2),
-        e.clientY - (rect.top + rect.height / 2)
-      );
-
-      if (distance < 120) {
-        moveNoButton();
-      }
-    });
-
-    // Mobile support
+    // Move EVERY time you try to hover
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("touchstart", moveNoButton);
 
     yesBtn.addEventListener("click", () => {
       document.body.innerHTML = `
         <div class="card">
-          <h1>YAY ISHA!!! 💘🥰</h1>
+          <h1>YAY ISHA ❤️</h1>
           <p style="font-size:18px; color:#555;">
-            I can’t wait to spend Valentine’s Day with you ❤️
+            Valentine’s Day just got special ✨
           </p>
         </div>
       `;
@@ -164,7 +152,7 @@
       setTimeout(() => heart.remove(), 6000);
     }, 300);
 
-    // Initial NO position
+    // Initial position
     moveNoButton();
   </script>
 
